@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import ThreadMessage from './components/ThreadMessage';
 import Audio from './components/Audio';
 import useFetchTranscript from './hooks/useFetchTranscript';
+import useSetStatus from './hooks/useSetStatus';
 
 import { getPersistedTimestamp } from './utils';
 
@@ -37,7 +38,7 @@ function App() {
   const [checked, setChecked] = useState([]);
   const audioRef = useRef();
   const [time, setTime] = useState(() => getPersistedTimestamp() || 0);
-  const [status, setStatus] = useState('idle');
+  const [status, updateStatus] = useSetStatus();
   const {transcript, error} = useFetchTranscript();
 
   return error ? (
@@ -61,7 +62,7 @@ function App() {
       })}
       <Footer>
         <AudioWrapper>
-          <Audio ref={audioRef} setStatus={setStatus} setTime={setTime} src={audioUrl} />
+          <Audio ref={audioRef} updateStatus={updateStatus} setTime={setTime} src={audioUrl} />
         </AudioWrapper>
       </Footer>
     </Container>
