@@ -47,19 +47,20 @@ const ProgressBar = forwardRef((props, ref) => {
   const trackRef = useRef();
 
   useEffect(() => {
+    const audioEl = ref.current;
     const updateCb = () => {
-      setTime(ref.current.currentTime);
+      setTime(audioEl.currentTime);
     };
     const duraionCb = () => {
-      setDuration(ref.current.duration);
+      setDuration(audioEl.duration);
     };
 
-    ref.current?.addEventListener?.('timeupdate', updateCb);
-    ref.current?.addEventListener?.('canplaythrough', duraionCb);
+    audioEl?.addEventListener?.('timeupdate', updateCb);
+    audioEl?.addEventListener?.('canplaythrough', duraionCb);
 
     return () => {
-      ref.current?.removeEventListener?.('timeupdate', updateCb);
-      ref.current?.removeEventListener?.('canplaythrough', duraionCb);
+      audioEl?.removeEventListener?.('timeupdate', updateCb);
+      audioEl?.removeEventListener?.('canplaythrough', duraionCb);
     };
   }, [ref]);
 

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { getPersistedTimestamp } from '../utils';
 import Controls from './Controls';
 
@@ -12,10 +12,11 @@ const Audio = ({
   const ref = useRef();
 
   useEffect(() => {
+    const audioEl = ref.current;
     let timerId;
     const initTiming = () => {
       timerId = setInterval(() => {
-        const currTime = ref.current?.currentTime ?? 0;
+        const currTime = audioEl?.currentTime ?? 0;
         onTimeUpdate(currTime);
       }, updateFrequency);
     };
@@ -30,18 +31,18 @@ const Audio = ({
       onPlay(e);
     };
 
-    ref.current?.addEventListener?.('pause', pauseCb);
-    ref.current?.addEventListener?.('play', playCb);
+    audioEl?.addEventListener?.('pause', pauseCb);
+    audioEl?.addEventListener?.('play', playCb);
 
     const start = getPersistedTimestamp();
     if (start) {
-      ref.current.currentTime = start;
+      audioEl.currentTime = start;
     }
 
     return () => {
       timerId && clearInterval(timerId);
-      ref.current?.removeEventListener?.('pause', pauseCb);
-      ref.current?.removeEventListener?.('play', playCb);
+      audioEl?.removeEventListener?.('pause', pauseCb);
+      audioEl?.removeEventListener?.('play', playCb);
     };
   }, [onPlay, onPause, onTimeUpdate, updateFrequency]);
 
