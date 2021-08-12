@@ -1,24 +1,31 @@
-import { forwardRef, useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { getPersistedTimestamp } from '../utils';
 
-const Audio = forwardRef(({ updateStatus, setTime, src }, ref) => {
+const Audio = ({
+  onPause,
+  onPlay,
+  onTimeUpdate,
+  src,
+  updateFrequency = 50,
+}) => {
+  const ref = useRef();
   useEffect(() => {
     let timerId;
     const initTiming = () => {
       timerId = setInterval(() => {
         const currTime = ref.current?.currentTime ?? 0;
-        setTime(currTime);
-      }, 50);
+        onTimeUpdate(currTime);
+      }, updateFrequency);
     };
 
-    ref.current?.addEventListener?.('pause', () => {
+    ref.current?.addEventListener?.('pause', e => {
       clearInterval(timerId);
-      updateStatus.pause();
+      onPause(e);
     });
 
-    ref.current?.addEventListener?.('play', () => {
+    ref.current?.addEventListener?.('play', e => {
       initTiming();
-      updateStatus.play();
+      onPlay(e);
     });
 
     const start = getPersistedTimestamp();
@@ -27,9 +34,9 @@ const Audio = forwardRef(({ updateStatus, setTime, src }, ref) => {
     }
 
     return () => clearInterval(timerId);
-  }, [updateStatus, setTime, ref]);
+  }, [onPlay, onPause, onTimeUpdate, updateFrequency]);
 
   return <audio src={src} controls ref={ref} />;
-});
+};
 
 export default Audio;

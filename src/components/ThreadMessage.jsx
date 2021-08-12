@@ -6,6 +6,7 @@ import Avatar from './Avatar';
 const Container = styled.div`
   display: flex;
   align-items: baseline;
+  margin: 25px 0;
 `;
 
 const Transcript = styled.div`
@@ -16,6 +17,9 @@ const Transcript = styled.div`
   line-height: 27px;
   letter-spacing: 0.2px;
   background: ${({ highlight }) => highlight && css`rgba(55,61,66,1)`};
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 const ThreadMessage = memo(

@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 
 import ThreadMessage from './components/ThreadMessage';
@@ -36,7 +36,6 @@ const AudioWrapper = styled.div`
 
 function App() {
   const [checked, setChecked] = useState([]);
-  const audioRef = useRef();
   const [time, setTime] = useState(() => getPersistedTimestamp() || 0);
   const [status, updateStatus] = useSetStatus();
   const {transcript, error} = useFetchTranscript();
@@ -62,7 +61,7 @@ function App() {
       })}
       <Footer>
         <AudioWrapper>
-          <Audio ref={audioRef} updateStatus={updateStatus} setTime={setTime} src={audioUrl} />
+          <Audio  onPause={updateStatus.pause} onPlay={updateStatus.play} onTimeUpdate={setTime} src={audioUrl} />
         </AudioWrapper>
       </Footer>
     </Container>

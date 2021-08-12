@@ -18,8 +18,8 @@ const Text = styled.span`
     animate &&
     css`
       animation: 1s ${fadeOut} ease-out forwards;
-    `}
-  color: ${({ highlight }) => highlight && css`rgba(142, 142, 241)`}
+    `};
+  color: ${({ highlight }) => highlight && css`rgba(142, 142, 241)`};
 `;
 
 const Word = ({
