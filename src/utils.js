@@ -12,6 +12,7 @@ export function mmss(durationAsSeconds) {
 
 export function getPersistedTimestamp() {
   const persisted = window.localStorage.getItem('ts');
+  if(!persisted)return;
   const [start] = JSON.parse(persisted);
   return Number(start);
 }

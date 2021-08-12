@@ -24,14 +24,15 @@ const Footer = styled.div`
   left: 0;
   right: 0;
   display: flex;
-  justify-content: flex-start;
   padding: 20px 30px;
   background: rgb(43,48,52);
   border-radius: 5px;
 `;
 
 const AudioWrapper = styled.div`
-  margin-left: 270px;
+  margin-left: 280px;
+  margin-right: 600px;
+  width: 100%;
 `
 
 function App() {

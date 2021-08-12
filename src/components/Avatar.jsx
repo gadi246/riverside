@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { mmss } from '../utils';
+import Timestamp from './Timestamp';
 
 const mockImages = {
   gadi_tzkhori:
@@ -13,12 +13,6 @@ const Speaker = styled.p`
   font-size: 18px;
   text-transform: capitalize;
   max-width: 120px;
-`;
-
-const Timestamp = styled.p`
-  font-size: 14px;
-  color: #bababa;
-  margin-right: 20px;
 `;
 
 const AvatarContainer = styled.div`
@@ -48,7 +42,7 @@ const Avatar = ({ speaker, start }) => {
     <AvatarContainer>
       <Photo src={mockImages[speaker]} alt={speaker} />
       <Text>
-        <Speaker>{speaker}</Speaker> <Timestamp>{mmss(start)}</Timestamp>
+        <Speaker>{speaker}</Speaker> <Timestamp seconds={start} />
       </Text>
     </AvatarContainer>
   );
