@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useRef } from 'react';
 import styled, { keyframes, css } from 'styled-components';
 
 const fadeOut = keyframes`
@@ -19,6 +19,7 @@ const Text = styled.span`
     css`
       animation: 1s ${fadeOut} ease-out forwards;
     `}
+  color: ${({ highlight }) => highlight && css`rgba(142, 142, 241)`}
 `;
 
 const Word = ({
@@ -31,25 +32,30 @@ const Word = ({
   status,
 }) => {
   const [delay, setDelay] = useState(false);
+  const timerRef = useRef();
 
   const onWordClick = useCallback(() => {
-    window.localStorage.setItem('ts', JSON.stringify([start, end]));
     setChecked([start, end]);
+    window.localStorage.setItem('ts', JSON.stringify([start, end]));
   }, [setChecked, end, start]);
 
   useEffect(() => {
     if (isActive) {
-      setDelay((prev) => (prev ? prev : true));
-      setTimeout(() => {
+      setDelay(prev => (prev ? prev : true));
+      timerRef.current = setTimeout(() => {
         setDelay(() => false);
       }, 1000);
     }
   }, [isActive]);
 
+  useEffect(() => {
+    return () => timerRef.current && clearTimeout(timerRef.current);
+  }, []);
+
   return (
     <Text
       animate={delay && status === 'play'}
-      style={isActive || isChecked ? { color: 'rgba(142, 142, 241)' } : {}}
+      highlight={isActive || isChecked}
       onDoubleClick={onWordClick}
     >
       {children}{' '}

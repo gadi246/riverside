@@ -1,40 +1,7 @@
 import { memo } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Word from './Word';
-import { mmss } from './utils';
-
-const Speaker = styled.p`
-  font-weight: 500;
-  font-size: 18px;
-  text-transform: capitalize;
-`;
-
-const Timestamp = styled.p`
-  font-size: 14px;
-  color: #bababa;
-`;
-
-const AvatarContainer = styled.div`
-  width: 200px;
-  flex-shrink: 0;
-`;
-
-const Text = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  width: 85%;
-`;
-
-const Avatar = ({ speaker, start }) => {
-  return (
-    <AvatarContainer>
-      <Text>
-        <Speaker>{speaker}</Speaker> <Timestamp>{mmss(start)}</Timestamp>
-      </Text>
-    </AvatarContainer>
-  );
-};
+import Avatar from './Avatar';
 
 const Container = styled.div`
   display: flex;
@@ -48,6 +15,7 @@ const Transcript = styled.div`
   border-radius: 5px;
   line-height: 27px;
   letter-spacing: 0.2px;
+  background: ${({ highlight }) => highlight && css`rgba(55,61,66,1)`};
 `;
 
 const ThreadMessage = memo(
@@ -56,7 +24,7 @@ const ThreadMessage = memo(
     return (
       <Container>
         <Avatar speaker={speaker} start={start} />
-        <Transcript style={time ? { background: 'rgba(55,61,66,1)' } : {}}>
+        <Transcript highlight={time}>
           {data.map(([word, start, end]) => {
             const isActive =
               status === 'idle' || status === 'play'
