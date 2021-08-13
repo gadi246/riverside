@@ -53,7 +53,6 @@ const Audio = ({
           ? Math.min(currTime + step, ref.current.duration)
           : Math.max(currTime + step, 0);
   };
-
   return (
     <>
       <audio src={src} ref={ref} />

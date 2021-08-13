@@ -13,7 +13,7 @@ const audioUrl =
 
 const Container = styled.div`
   background: rgb(27, 33, 39);
-  padding: 50px 600px 200px 300px;
+  padding: 50px 30% 200px 15%;
   min-width: 1400px;
   position: relative;
 `;
@@ -24,14 +24,14 @@ const Footer = styled.div`
   left: 0;
   right: 0;
   display: flex;
-  padding: 20px 30px;
+  padding: 20px 0;
   background: rgb(43,48,52);
   border-radius: 5px;
 `;
 
 const AudioWrapper = styled.div`
-  margin-left: 280px;
-  margin-right: 600px;
+  margin-left: 15%;
+  margin-right: 30%;
   width: 100%;
 `
 
